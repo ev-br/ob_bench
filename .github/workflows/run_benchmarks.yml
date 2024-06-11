@@ -59,5 +59,8 @@ jobs:
           ls -l .
           echo ">>> .asv"
           ls -l .asv
+          echo ">>> .asv/results"
+          ls -l .asv/results
+
           cp -r benchmarks/html/* ~/$BENCHMARKS_REPO/
           cp -r benchmarks/results ~/$BENCHMARKS_REPO/
