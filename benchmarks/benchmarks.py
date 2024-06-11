@@ -68,33 +68,130 @@ class Nrm2:
     def time_dnrm2(self, n):
         run_dnrm2(n, self.x, 1)
 
-'''
-dnrm2_sizes = [100, 1000]
 
-def run_dnrm2(n, x, incx):
-    res = dnrm2(x, n, incx=incx)
+# ddot
+
+ddot_sizes = [100, 1000]
+
+def run_ddot(x, y,):
+    res = ddot(x, y)
     return res
 
 
+class DDot:
+    params = ddot_sizes
+    param_names = ["size"]
 
-def time_single_run():
-    n = 10
-    import time
-    time.sleep(1)
+    def setup(self, n):
+        rndm = np.random.RandomState(1234)
+        self.x = np.array(rndm.uniform(size=(n,)), dtype=float)
+        self.y = np.array(rndm.uniform(size=(n,)), dtype=float)
 
-   # run_dnrm2(n)
-
-def time_single_run_2():
-    n = 100
-    run_dnrm2(n)
-'''
+    def time_ddot(self, n):
+        run_ddot(self.x, self.y)
 
 
-'''
-@pytest.mark.parametrize('n', dnrm2_sizes)
-def test_nrm2(benchmark, n):
-    rndm = np.random.RandomState(1234)
-    x = np.array(rndm.uniform(size=(n,)), dtype=float)
-    result = benchmark(run_dnrm2, n, x, 1)
-'''
+
+# daxpy
+
+daxpy_sizes = [100, 1000]
+
+def run_daxpy(x, y,):
+    res = daxpy(x, y, a=2.0)
+    return res
+
+
+class Daxpy:
+    params = daxpy_sizes
+    param_names = ["size"]
+
+    def setup(self, n):
+        rndm = np.random.RandomState(1234)
+        self.x = np.array(rndm.uniform(size=(n,)), dtype=float)
+        self.y = np.array(rndm.uniform(size=(n,)), dtype=float)
+
+    def time_daxpy(self, n):
+        run_daxpy(self.x, self.y)
+
+
+
+# ### BLAS level 3 ###
+
+# dgemm
+
+gemm_sizes = [100, 1000]
+
+def run_dgemm(a, b, c):
+    alpha = 1.0
+    res = dgemm(alpha, a, b, c=c, overwrite_c=True)
+    return res
+
+
+class Dgemm:
+    params = gemm_sizes
+    param_names = ["size"]
+
+    def setup(self, n):
+        rndm = np.random.RandomState(1234)
+        self.a = np.array(rndm.uniform(size=(n, n)), dtype=float, order='F')
+        self.b = np.array(rndm.uniform(size=(n, n)), dtype=float, order='F')
+        self.c = np.empty((n, n), dtype=float, order='F')
+
+    def time_dgemm(self, n):
+        run_dgemm(self.a, self.b, self.c)
+
+
+# dsyrk
+
+syrk_sizes = [100, 1000]
+
+
+def run_dsyrk(a, c):
+    res = dsyrk(1.0, a, c=c, overwrite_c=True)
+    return res
+
+
+class DSyrk:
+    params = syrk_sizes
+    param_names = ["size"]
+
+    def setup(self, n):
+        rndm = np.random.RandomState(1234)
+        self.a = np.array(rndm.uniform(size=(n, n)), dtype=float, order='F')
+        self.c = np.empty((n, n), dtype=float, order='F')
+
+    def time_dsyrk(self, n):
+        run_dsyrk(self.a, self.c)
+
+
+# ### LAPACK ###
+
+# linalg.solve
+
+dgesv_sizes = [100, 1000]
+
+
+def run_dgesv(a, b):
+    res = dgesv(a, b, overwrite_a=True, overwrite_b=True)
+    return res
+
+
+class Dgesv:
+    params = dgesv_sizes
+    param_names = ["size"]
+
+    def setup(self, n):
+        rndm = np.random.RandomState(1234)
+        self.a = (np.array(rndm.uniform(size=(n, n)), dtype=float, order='F') +
+                  np.eye(n, order='F'))
+        self.b = np.array(rndm.uniform(size=(n, 1)), order='F')
+
+    def time_dgesv(self, n):
+        run_dgesv(self.a, self.b)
+
+      # XXX: how to run asserts?
+      #  lu, piv, x, info = benchmark(run_gesv, a, b)
+      #  assert lu is a
+      #  assert x is b
+      #  assert info == 0
 
