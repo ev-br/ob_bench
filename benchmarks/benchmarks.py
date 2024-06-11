@@ -195,3 +195,34 @@ class Dgesv:
       #  assert x is b
       #  assert info == 0
 
+
+# linalg.eigh
+
+dsyev_sizes = [50, 200]
+
+
+def run_dsyev(a, lwork):
+    res = dsyev(a, lwork=lwork, overwrite_a=True)
+    return res
+
+
+class Dsyev:
+    params = dsyev_sizes
+    param_names = ["size"]
+
+    def setup(self, n):
+        rndm = np.random.RandomState(1234)
+        a = rndm.uniform(size=(n, n))
+        a = np.asarray(a + a.T, dtype=float, order='F')
+        a_ = a.copy()
+
+        lwork, info = dsyev_lwork(n)
+        lwork = int(lwork)
+        assert info == 0
+
+        self.a = a_
+        self.lwork = lwork
+
+    def time_dsyev(self, n):
+        run_dsyev(self.a, self.lwork)
+
