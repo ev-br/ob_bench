@@ -47,10 +47,15 @@ jobs:
       - name: Copy benchmarks to benchmarks repo directory
         run: |
           git clone https://$GITHUB_TOKEN@github.com/$BENCHMARKS_REPO.git ~/$BENCHMARKS_REPO
+          echo ">>>> clone done"
+
           RESULTS_DIR=~/$BENCHMARKS_REPO/results
           if [ -d "$RESULTS_DIR" ]
           then
-            cp -r $RESULTS_DIR/$MACHINE_NAME/* results/$MACHINE_NAME/
+            echo ">> "results/$MACHINE_NAME
+            ls -l 
+
+            cp -r $RESULTS_DIR/$MACHINE_NAME/* .asv/results/$MACHINE_NAME/
           else
             echo "results/ directory does not exist in the benchmarks repository"
           fi
