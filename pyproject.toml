@@ -12,7 +12,7 @@ version = "0.1"
 maintainers = [
     {name = ".", email = ".@gmail.com"}
 ]
-description = "PyWavelets, wavelet transform module"
+description = "a wrapper"
 requires-python = ">=3.10"
 dependencies = ["numpy>=1.23,<3"]
 
