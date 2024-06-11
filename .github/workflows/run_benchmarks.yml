@@ -55,5 +55,9 @@ jobs:
             echo "results/ directory does not exist in the benchmarks repository"
           fi
           asv publish --config $ASV_CONFIG -v
+          echo ">>> ."
+          ls -l .
+          echo ">>> .asv"
+          ls -l .asv
           cp -r benchmarks/html/* ~/$BENCHMARKS_REPO/
           cp -r benchmarks/results ~/$BENCHMARKS_REPO/
