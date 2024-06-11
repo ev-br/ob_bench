@@ -38,3 +38,7 @@ jobs:
           echo "Setting machine name to $MACHINE_NAME"
           asv machine --machine $MACHINE_NAME --yes --config $ASV_CONFIG -v
           cat ~/.asv-machine.json
+
+      - name: Run benchmarks
+        run: |
+          asv run --config $ASV_CONFIG -v
