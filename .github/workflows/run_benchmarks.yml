@@ -26,8 +26,9 @@ jobs:
           python-version: '3.11'
       - name: Install dependencies
         run: |
+          sudo apt install openblas
           pip install asv
-          pip install scipy-openblas32
+         # pip install scipy-openblas32
 
       - name: Set and log asv machine configuration
         run: |
