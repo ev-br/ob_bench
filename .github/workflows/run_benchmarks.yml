@@ -62,5 +62,5 @@ jobs:
           echo ">>> .asv/results"
           ls -l .asv/results
 
-          cp -r benchmarks/html/* ~/$BENCHMARKS_REPO/
-          cp -r benchmarks/results ~/$BENCHMARKS_REPO/
+          cp -r .asv/html/github-actions/* ~/$BENCHMARKS_REPO/
+          cp -r .asv/results ~/$BENCHMARKS_REPO/
