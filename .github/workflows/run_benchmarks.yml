@@ -64,3 +64,12 @@ jobs:
 
           cp -r .asv/html/* ~/$BENCHMARKS_REPO/
           cp -r .asv/results ~/$BENCHMARKS_REPO/
+
+      - name: Push benchmarks
+        run: |
+          cd ~/$BENCHMARKS_REPO
+          git add .
+          git config --global user.email "project@openblas"
+          git config --global user.name "OB benchmark bot"
+          git commit -m "Update benchmarks"
+          git push origin main
