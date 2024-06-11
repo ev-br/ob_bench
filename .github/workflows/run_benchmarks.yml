@@ -27,6 +27,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install asv
+          pip install scipy-openblas32
 
       - name: Set and log asv machine configuration
         run: |
