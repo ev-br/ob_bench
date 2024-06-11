@@ -26,7 +26,7 @@ jobs:
           python-version: '3.11'
       - name: Install dependencies
         run: |
-          pip install asv
+          pip install numpy meson meson-python ninja build asv
           sudo apt install libopenblas-dev    # XXX
 
       - name: Set and log asv machine configuration
