@@ -6,8 +6,8 @@ on:
       - main
 
 env:
-  #GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-  #BENCHMARKS_REPO: sgkit-dev/sgkit-benchmarks-asv
+  GITHUB_TOKEN: ${{ secrets.OB_BENCH_TOKEN }}
+  BENCHMARKS_REPO: ev-br/ob-bench-asv
   ASV_CONFIG: asv.conf.json
   MACHINE_NAME: github-actions  # to identify github actions machine as hostname changes everytime
 
@@ -43,3 +43,17 @@ jobs:
       - name: Run benchmarks
         run: |
           asv run --config $ASV_CONFIG -v
+
+      - name: Copy benchmarks to benchmarks repo directory
+        run: |
+          git clone https://$GITHUB_TOKEN@github.com/$BENCHMARKS_REPO.git ~/$BENCHMARKS_REPO
+          RESULTS_DIR=~/$BENCHMARKS_REPO/results
+          if [ -d "$RESULTS_DIR" ]
+          then
+            cp -r $RESULTS_DIR/$MACHINE_NAME/* benchmarks/results/$MACHINE_NAME/
+          else
+            echo "results/ directory does not exist in the benchmarks repository"
+          fi
+          asv publish --config $ASV_CONFIG -v
+          cp -r benchmarks/html/* ~/$BENCHMARKS_REPO/
+          cp -r benchmarks/results ~/$BENCHMARKS_REPO/
