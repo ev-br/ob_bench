@@ -196,6 +196,36 @@ class Dgesv:
       #  assert info == 0
 
 
+# linalg.svd
+
+dgesdd_sizes = ["100, 5", "1000, 222"]
+
+
+def run_dgesdd(a, lwork):
+    res = dgesdd(a, lwork=lwork, full_matrices=False, overwrite_a=False)
+    return res
+
+
+class Dgesdd:
+    params = dgesdd_sizes
+    param_names = ["(m, n)"]
+
+    def setup(self, mn):
+        m, n = (int(x) for x in mn.split(","))
+
+        rndm = np.random.RandomState(1234)
+        a = np.array(rndm.uniform(size=(m, n)), dtype=float, order='F')
+
+        lwork, info = dgesdd_lwork(m, n)
+        lwork = int(lwork)
+        assert info == 0
+
+        self.a, self.lwork = a, lwork
+
+    def time_dgesdd(self, mn):
+        run_dgesdd(self.a, self.lwork)
+
+
 # linalg.eigh
 
 dsyev_sizes = [50, 200]
