@@ -27,7 +27,8 @@ jobs:
       - name: Install dependencies
         run: |
           pip install numpy meson meson-python ninja build asv
-          sudo apt install libopenblas-dev    # XXX
+          # sudo apt install libopenblas-dev    # XXX
+          pip install scipy_openblas32
 
       - name: Set and log asv machine configuration
         run: |
