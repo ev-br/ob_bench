@@ -47,7 +47,10 @@ jobs:
 
       - name: Run benchmarks
         run: |
+          echo ${{ github.workspace}}
           asv run --config $ASV_CONFIG -v
+        env:
+          PKG_CONFIG_PATH: ${{ github.workspace }}
 
       - name: Copy benchmarks to benchmarks repo directory
         run: |
