@@ -5,7 +5,7 @@ from benchmarking.
 
 __version__ = "0.1"  
 
-import scipy_openblas32
+import scipy_openblas32   # preload symbols. typically done in _distributor_init.py
 
 #from scipy.linalg.blas import (
 from ._flapack import (
