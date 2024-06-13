@@ -7,7 +7,7 @@
     "project": "openblas_wrap",
 
     // The project's homepage
-    "project_url": "http://project-homepage.org/",
+    "project_url": "https://github.com/ev-br/ob_bench",
 
     // The URL or local path of the source code repository for the
     // project being benchmarked
