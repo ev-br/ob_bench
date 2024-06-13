@@ -5,6 +5,7 @@ from benchmarking.
 
 __version__ = "0.1"  
 
+import scipy_openblas32
 
 #from scipy.linalg.blas import (
 from ._flapack import (
