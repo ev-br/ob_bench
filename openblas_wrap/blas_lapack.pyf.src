@@ -6,11 +6,12 @@
 ! <tchar=s,d,cs,zd>
 ! <tchar2c=cs,zd>
 !
-! <prefix2=s,d>
-! <prefix2c=c,z>
-! <prefix3=s,sc>
-! <prefix4=d,dz>
-! <prefix6=s,d,c,z,c,z>
+! <prefix=scipy_s,scipy_d,scipy_c,scipy_z>
+! <prefix2=scipy_s,scipy_d>
+! <prefix2c=scipy_c,scipy_z>
+! <prefix3=scipy_s,scipy_sc>
+! <prefix4=scipy_d,scipy_dz>
+! <prefix6=scipy_s,scipy_d,scipy_c,scipy_z,scipy_c,scipy_z>
 !
 ! <ftype2=real,double precision>
 ! <ftype2c=complex,double complex>
@@ -65,13 +66,13 @@ subroutine <prefix>axpy(n,a,x,offx,incx,y,offy,incy)
 
 end subroutine <prefix>axpy
 
-function ddot(n,x,offx,incx,y,offy,incy) result (xy)
+function scipy_ddot(n,x,offx,incx,y,offy,incy) result (xy)
   ! Computes a vector-vector dot product.
 
-  callstatement ddot_return_value = (*f2py_func)(&n,x+offx,&incx,y+offy,&incy)
+  callstatement scipy_ddot_return_value = (*f2py_func)(&n,x+offx,&incx,y+offy,&incy)
   callprotoargument F_INT*,double*,F_INT*,double*,F_INT*
-  intent(c) ddot
-  fortranname F_FUNC(ddot,DDOT)
+  intent(c) scipy_ddot
+  fortranname F_FUNC(scipy_ddot,DDOT)
 
   double precision dimension(*), intent(in) :: x
   double precision dimension(*), intent(in) :: y
@@ -87,7 +88,7 @@ function ddot(n,x,offx,incx,y,offy,incy) result (xy)
   check(len(x)-offx>(n-1)*abs(incx)) :: n
   check(len(y)-offy>(n-1)*abs(incy)) :: n
 
-end function ddot
+end function scipy_ddot
 
 
 function <prefix4>nrm2(n,x,offx,incx) result(n2)
