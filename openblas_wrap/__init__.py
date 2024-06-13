@@ -23,7 +23,7 @@ from openblas_wrap._flapack import (
     # linalg.solve
     scipy_dgesv as dgesv,
     # linalg.svd
-    scipy_dgesdd as dgesdd, dgesdd_lwork as dgesdd_lwork,
+    scipy_dgesdd as dgesdd, scipy_dgesdd_lwork as dgesdd_lwork,
     # linalg.eigh
-    scipy_dsyev as dsyev, dsyev_lwork as dsyev_lwork
+    scipy_dsyev as dsyev, scipy_dsyev_lwork as dsyev_lwork
 )
