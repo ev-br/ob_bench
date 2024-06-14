@@ -87,5 +87,7 @@ jobs:
           git add .
           git config --global user.email "project@openblas"
           git config --global user.name "OB benchmark bot"
-          git commit -m "Update benchmarks"
+
+          python -c'import scipy_openblas32 as sc; print(sc.get_openblas_config())' > msg.txt
+          git commit -m "Update benchmarks `cat msg.txt` "
           git push origin main
